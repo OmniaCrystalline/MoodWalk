@@ -110,16 +110,61 @@ export function RouteMap({ route }: RouteMapProps) {
         .addTo(map);
     });
 
-    // Draw route line
-    const polyline = L.polyline(allPoints, {
-      color: "#059669",
-      weight: 4,
-      opacity: 0.8,
-      dashArray: "10, 10",
-    }).addTo(map);
+    // Get route through streets using OSRM
+    const getRoute = async () => {
+      try {
+        // Build coordinates string for OSRM API
+        const coordinates = [
+          [route.startLocation.longitude, route.startLocation.latitude],
+          ...route.waypoints.map((wp) => [wp.longitude, wp.latitude]),
+        ];
 
-    // Fit bounds with padding
-    map.fitBounds(L.latLngBounds(allPoints), { padding: [50, 50] });
+        const coordinatesString = coordinates
+          .map((coord) => `${coord[0]},${coord[1]}`)
+          .join(";");
+
+        // Use OSRM public server for routing
+        const response = await fetch(
+          `https://router.project-osrm.org/route/v1/walking/${coordinatesString}?overview=full&geometries=geojson`
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.code === "Ok" && data.routes && data.routes.length > 0) {
+            // Draw route along streets
+            const routeCoordinates = data.routes[0].geometry.coordinates.map(
+              (coord: [number, number]) => [coord[1], coord[0]] as L.LatLngExpression
+            );
+
+            const polyline = L.polyline(routeCoordinates, {
+              color: "#059669",
+              weight: 4,
+              opacity: 0.8,
+              dashArray: "10, 10",
+            }).addTo(map);
+
+            // Fit bounds with padding
+            map.fitBounds(L.latLngBounds(allPoints), { padding: [50, 50] });
+            return;
+          }
+        }
+      } catch (error) {
+        console.warn("Failed to get route from OSRM, using direct line:", error);
+      }
+
+      // Fallback: Draw direct line if routing fails
+      const polyline = L.polyline(allPoints, {
+        color: "#059669",
+        weight: 4,
+        opacity: 0.8,
+        dashArray: "10, 10",
+      }).addTo(map);
+
+      // Fit bounds with padding
+      map.fitBounds(L.latLngBounds(allPoints), { padding: [50, 50] });
+    };
+
+    getRoute();
 
     // Cleanup on unmount
     return () => {
