@@ -1,13 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import type { MicroRecommendation } from "@shared/schema";
-import { 
-  Wind, 
-  Eye, 
-  Activity, 
-  Pause, 
+import {
+  Wind,
+  Eye,
+  Activity,
+  Pause,
   Sparkles,
-  Clock 
+  Clock
 } from "lucide-react";
 
 interface MicroRecommendationCardProps {
@@ -43,29 +43,29 @@ export function MicroRecommendationCard({ recommendation }: MicroRecommendationC
   const colorClass = typeColors[recommendation.type] || "bg-accent text-accent-foreground";
 
   return (
-    <Card className="rounded-xl border-2 hover-elevate">
-      <CardContent className="p-4 space-y-3">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${colorClass}`}>
-              <Icon className="h-5 w-5" />
+    <Card className="rounded-lg sm:rounded-xl border-2 hover-elevate">
+      <CardContent className="p-3 sm:p-4 md:p-5 space-y-2.5 sm:space-y-3">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+            <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${colorClass}`}>
+              <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
-            <div>
-              <h4 className="font-semibold text-sm" data-testid={`recommendation-title-${recommendation.id}`}>
+            <div className="min-w-0 flex-1">
+              <h4 className="font-semibold text-sm sm:text-base break-words" data-testid={`recommendation-title-${recommendation.id}`}>
                 {recommendation.title}
               </h4>
-              <Badge variant="outline" className="text-xs mt-1">
+              <Badge variant="outline" className="text-xs sm:text-sm mt-1">
                 {typeLabels[recommendation.type] || recommendation.type}
               </Badge>
             </div>
           </div>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground whitespace-nowrap">
-            <Clock className="h-3 w-3" />
+          <div className="flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-muted-foreground whitespace-nowrap flex-shrink-0">
+            <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             <span>{recommendation.duration} min</span>
           </div>
         </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed break-words">
           {recommendation.description}
         </p>
       </CardContent>

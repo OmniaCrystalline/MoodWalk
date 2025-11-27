@@ -4,11 +4,11 @@
 
 /* LIGHT MODE - Calming wellness theme with soft greens and warm neutrals */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
+  --button-outline: rgba(0, 0, 0, .10);
+  --badge-outline: rgba(0, 0, 0, .05);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(0,0,0, .03);
-  --elevate-2: rgba(0,0,0, .08);
+  --elevate-1: rgba(0, 0, 0, .03);
+  --elevate-2: rgba(0, 0, 0, .08);
   --background: 150 20% 98%;
   --foreground: 150 10% 15%;
   --border: 150 15% 88%;
@@ -88,11 +88,11 @@
 }
 
 .dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
+  --button-outline: rgba(255, 255, 255, .10);
+  --badge-outline: rgba(255, 255, 255, .05);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --elevate-1: rgba(255, 255, 255, .04);
+  --elevate-2: rgba(255, 255, 255, .09);
   --background: 150 15% 8%;
   --foreground: 150 10% 95%;
   --border: 150 12% 18%;
@@ -291,6 +291,9 @@
 .leaflet-container {
   font-family: var(--font-sans);
   border-radius: 0.75rem;
+  max-width: 100vw !important;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 .leaflet-popup-content-wrapper {
@@ -304,10 +307,13 @@
 
 /* Custom marker pulse animation */
 @keyframes marker-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 0.8;
@@ -324,6 +330,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -339,6 +346,7 @@
   from {
     stroke-dashoffset: 1000;
   }
+
   to {
     stroke-dashoffset: 0;
   }
@@ -347,4 +355,10 @@
 .route-line {
   stroke-dasharray: 1000;
   animation: route-draw 2s ease-out forwards;
+}
+
+/* Text wrapping utilities for small screens */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }

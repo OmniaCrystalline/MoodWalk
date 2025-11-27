@@ -133,8 +133,9 @@ export function RouteMap({ route }: RouteMapProps) {
   return (
     <div
       ref={mapRef}
-      className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-lg sm:rounded-xl overflow-hidden border-2 border-border"
+      className="w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px] xl:h-[600px] rounded-lg sm:rounded-xl overflow-hidden border-2 border-border"
       data-testid="route-map"
+      style={{ maxWidth: '100vw', width: '100%' }}
     />
   );
 }

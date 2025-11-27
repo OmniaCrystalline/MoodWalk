@@ -27,8 +27,8 @@ export function MoodSelector({ value, onChange, label, id }: MoodSelectorProps) 
       <label className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
         {label}
       </label>
-      <div 
-        className="flex flex-wrap gap-3 justify-center md:justify-start"
+      <div
+        className="flex flex-wrap gap-3 justify-center"
         role="radiogroup"
         aria-label={label}
       >
@@ -36,7 +36,7 @@ export function MoodSelector({ value, onChange, label, id }: MoodSelectorProps) 
           const config = moodConfig[mood];
           const Icon = config.icon;
           const isSelected = value === mood;
-          
+
           return (
             <button
               key={mood}
